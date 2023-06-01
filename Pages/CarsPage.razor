@@ -1,9 +1,7 @@
 @page "/cars-page"
-@using Microsoft.EntityFrameworkCore
 
-@using MaliksCars.Application.Models
-@using MaliksCars.Application.Database
-@inject ApplicationDbContext _db
+@inject ICarService _carService
+@inject NavigationManager _navigationManager
 
 
 <div class="grid grid-cols-3 gap-4 mt-20 ml-12">
@@ -49,7 +47,8 @@
 
     protected override async Task OnInitializedAsync()
     {
-        cars = await _db.Cars.ToListAsync();
+
+        cars = await _carService.GetCarsAsync();
 
     }
 }
