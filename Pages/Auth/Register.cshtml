@@ -34,6 +34,8 @@
 					@Html.ValidationMessageFor(m => m.Input.Email)
 				</div>
 			</div>
+
+		
 			<div class="mt-8">
 				<label asp-for="Input.Password" class="block font-medium text-sm text-gray-700">Password</label>
 				<div class="mt-1">
@@ -52,6 +54,17 @@
 					@Html.ValidationMessageFor(m => m.Input.ConfirmPassword)
 				</div>
 			</div>
+	<div class="mt-8">
+				<label asp-for="Input.ImageUrl" class="block font-medium text-sm text-gray-700">Image</label>
+				<div class="mt-1">
+					<input asp-for="Input.ImageUrl" type="text"  class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full" />
+				</div>
+				<div class="mt-1 text-red-500 text-sm">
+					@Html.ValidationMessageFor(m => m.Input.ImageUrl)
+				</div>
+			</div>
+
+
 			<div class="mt-8 flex justify-end items-center">
 				<a href="/login" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
 					Already registered?

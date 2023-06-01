@@ -62,6 +62,7 @@ namespace BlazorSpark.Pages.Auth
 			{
 				Name = Input.Name,
 				Email = Input.Email,
+				ImageUrl = Input.ImageUrl,
 				Password = _usersService.GetSha256Hash(Input.Password),
 				CreatedAt = DateTime.UtcNow
 			};
@@ -113,6 +114,7 @@ namespace BlazorSpark.Pages.Auth
 		[EmailAddress(ErrorMessage = "Invalid email address")]
 		[Required(ErrorMessage = "Email is required")]
 		public string Email { get; set; }
+		public string ImageUrl { get; set; }
 
 		[Required(ErrorMessage = "Password is required")]
 		public string Password { get; set; }

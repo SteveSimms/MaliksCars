@@ -15,6 +15,8 @@
 
         public string Password { get; set; }
 
+        public string ImageUrl { get; set; }
+
         public string? RememberToken { get; set; }
 
         public DateTime? EmailVerifiedAt { get; set; }
