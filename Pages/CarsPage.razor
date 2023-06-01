@@ -7,6 +7,14 @@
 <div class="grid grid-cols-3 gap-4 mt-20 ml-12">
     @foreach (var car in cars)
     {
+
+            <div class="flex justify-center items-center ">
+
+
+
+
+
+
             <div class="flex flex-col max-w-sm rounded overflow-hidden shadow-lg">
                 <img class="w-full card-img" src="@car.ImageUrl" alt="@car.Name" @onclick="() => NavigateToCarDetails(car.Id)">
                 <div class="flex-grow px-6 py-4">
@@ -31,6 +39,7 @@
                     </button>
                 </div>
             </div>
+</div>
     }
 </div>
 
