@@ -1,0 +1,57 @@
+@page "/cars-page"
+@using Microsoft.EntityFrameworkCore
+
+@using MaliksCars.Application.Models
+@using MaliksCars.Application.Database
+@inject ApplicationDbContext _db
+
+
+<div class="grid grid-cols-3 gap-4 mt-20 ml-12">
+    @foreach (var car in cars)
+    {
+            <div class="flex flex-col max-w-sm rounded overflow-hidden shadow-lg">
+                <img class="w-full card-img" src="@car.ImageUrl" alt="@car.Name">
+                <div class="flex-grow px-6 py-4">
+                    <div class="font-bold text-xl mb-2">@car.Name - @car.Model - @car.Year</div>
+
+                </div>
+
+                     <div class="font-bold text-xl mb-2   ml-3 text-green-500">   
+                @if (decimal.TryParse(car.BasePrice, out var basePrice))
+                {
+                    @($"{basePrice:C}")
+                }
+        </div>  
+                 <div class="font-bold text-xl mb-2  ml-2">@car.Name - @car.Model - @car.Year</div>
+                         <p class="text-gray-700 text-base  ml-3">
+                @car.Description.Substring(0, Math.Min(car.Description.Length, 60))@(car.Description.Length > 40 ? "..." : "")
+                        </p> 
+                    
+                <div class="px-6 py-4">
+                    <button href="/car-details/id" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50">
+                        See Details 
+                    </button>
+                </div>
+            </div>
+    }
+</div>
+
+<style>
+    .card-img {
+        height: 200px;
+        object-fit: cover;
+    }
+</style>
+
+
+@code {
+    private List<Car> cars;
+
+    protected override async Task OnInitializedAsync()
+    {
+        cars = await _db.Cars.ToListAsync();
+
+    }
+}
+
+
