@@ -1,16 +1,22 @@
 @page "/cars-page"
-@using Microsoft.EntityFrameworkCore
 
-@using MaliksCars.Application.Models
-@using MaliksCars.Application.Database
-@inject ApplicationDbContext _db
-
+@inject ICarService _carService
+@inject NavigationManager _navigationManager
+@attribute [Authorize]
 
 <div class="grid grid-cols-3 gap-4 mt-20 ml-12">
     @foreach (var car in cars)
     {
+
+            <div class="flex justify-center items-center ">
+
+
+
+
+
+
             <div class="flex flex-col max-w-sm rounded overflow-hidden shadow-lg">
-                <img class="w-full card-img" src="@car.ImageUrl" alt="@car.Name">
+                <img class="w-full card-img" src="@car.ImageUrl" alt="@car.Name" @onclick="() => NavigateToCarDetails(car.Id)">
                 <div class="flex-grow px-6 py-4">
                     <div class="font-bold text-xl mb-2">@car.Name - @car.Model - @car.Year</div>
 
@@ -28,11 +34,12 @@
                         </p> 
                     
                 <div class="px-6 py-4">
-                    <button href="/car-details/id" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50">
+                    <button @onclick="() => NavigateToCarDetails(car.Id)" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50">
                         See Details 
                     </button>
                 </div>
             </div>
+</div>
     }
 </div>
 
@@ -49,8 +56,14 @@
 
     protected override async Task OnInitializedAsync()
     {
-        cars = await _db.Cars.ToListAsync();
 
+        cars = await _carService.GetCarsAsync();
+
+    }
+
+    private void NavigateToCarDetails(int carId)
+    {
+        _navigationManager.NavigateTo($"/car-details/{carId}");
     }
 }
 
