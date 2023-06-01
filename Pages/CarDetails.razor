@@ -1,0 +1,15 @@
+@page "/car-details/{CarId:int}"
+@inject ICarService _carService
+
+<h1>Details Page: @CarId</h1>
+
+@code {
+[Parameter]
+public int CarId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var car = await _carService.GetCarByIdAsync(CarId);
+        
+    }
+}

@@ -6,5 +6,6 @@ namespace MaliksCars.Application.Services
     {
             
          public Task<List<Car>> GetCarsAsync();
+        public Task<Car> GetCarByIdAsync(int id);
     }
 }

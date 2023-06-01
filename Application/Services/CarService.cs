@@ -13,7 +13,14 @@ namespace MaliksCars.Application.Services
             _factory = factory;
         }
 
-//get all cars
+        public async Task<Car> GetCarByIdAsync(int id)
+        {
+            using  var context = _factory.CreateDbContext();
+            var car = await context.Cars.FirstOrDefaultAsync(c => c.Id == id);
+            return car;
+        }
+
+        //get all cars
         public async Task<List<Car>> GetCarsAsync()
         {
             using  var context = _factory.CreateDbContext();
