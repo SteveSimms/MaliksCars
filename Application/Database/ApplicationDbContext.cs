@@ -249,6 +249,21 @@ namespace MaliksCars.Application.Database
                         "The 2024 Kia Soul EX price may surprise you as it may be around $22,665. The new mini crossover offers a redesigned look and is priced to compete with other small SUVs like the Honda Element and Nissan Cube. The Soul's dimensions are similar to those of a popular SUV, but with the added power of a turbocharged engine.",
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
+                },
+                new {
+                    Id = 13,
+                    Name = "Mercedes",
+                    Model = "Amg G63",
+                    Color = "Black",
+                    Year = "2023",
+                    BasePrice = "139000",
+                    ImageUrl =
+                        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.ytimg.com%2Fvi%2FRjocMccyxqc%2Fmaxresdefault.jpg&f=1&nofb=1&ipt=7a67a15ccdd6b6b846bcbf15deabdadd61b67d25476b47339ab0680a6f124805&ipo=images",
+                    Emoji = "🏎️",
+                    Description =
+                        "There's nothing else on the road that's quite like the 2023 Mercedes-Benz G-Class. The original G-wagen was an icon, a military vehicle with the interior of an S-Class, and it remained on sale for what seems like forever. The redesigned second-generation version of the SUV arrived in 2019, retaining all of the looks, panache and capability of the original but with a more refined interior and better in-car tech and driver aids. That said, it's far from the most comfortable or best-driving luxury SUV on the road. The G-Class wins on charm more than anything else.",
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now
                 });
         }
     }

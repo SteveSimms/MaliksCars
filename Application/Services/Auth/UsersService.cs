@@ -52,6 +52,8 @@ namespace MaliksCars.Application.Services.Auth
                     .ToListAsync();
         }
 
+        //asign user roles 
+
         public string GetSha256Hash(string input)
         {
             using (var hashAlgorithm = SHA256.Create())
