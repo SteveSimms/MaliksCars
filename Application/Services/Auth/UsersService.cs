@@ -53,7 +53,30 @@ namespace MaliksCars.Application.Services.Auth
         }
 
         //asign user roles 
+public async Task AssignAdminRoleAsync(int userId )
+        {
+            using var context = _factory.CreateDbContext();
+            var user = await context.Users.FindAsync(userId);
 
+                if(user != null)
+                {
+                    // Get the Admin role
+                    var adminRole = await context.Roles.FirstOrDefaultAsync(r => r.Name == CustomRoles.Admin);
+
+        // Check if the user is already assigned to the Admin role
+        var userRole = await context.UserRoles.FirstOrDefaultAsync(ur => ur.UserId == userId && ur.RoleId == adminRole.Id);
+
+                      // Add the user to the Admin role if they are not already assigned
+        if (adminRole != null && userRole == null)
+        {
+            await context.UserRoles.AddAsync(new UserRole { RoleId = adminRole.Id, User = user });
+            await context.SaveChangesAsync();
+        }
+    }
+
+          
+           
+        }
         public string GetSha256Hash(string input)
         {
             using (var hashAlgorithm = SHA256.Create())

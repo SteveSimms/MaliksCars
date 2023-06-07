@@ -1,10 +1,95 @@
 ﻿@page "/dashboard"
+@using  MaliksCars.Application.Services.Auth
+@using Microsoft.AspNetCore.Components.Forms
+@inject UsersService usersService
+
 @attribute [Authorize]
 <section class="max-w-5xl mx-auto py-28 min-h-screen px-4">
     <article>
         <h1 class="text-2xl font-bold text-gray-800">
             User Dashboard
         </h1>
+          @* <EditForm Model="@assignRoleModel" OnValidSubmit="AssignRole">
+            <InputText id="userId" @bind-Value="assignRoleModel.UserId" />
+            <button type="submit" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 
+                                            rounded-md 
+                                            focus:outline-none 
+                                            focus:ring-2 
+                                            focus:ring-purple-600 
+                                            focus:ring-opacity-50">Assign Admin Role</button>
+        </EditForm> *@
+      @* <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in users)
+                {
+                    <tr>
+                        <td>@user.Id</td>
+                        <td>@user.Name</td>
+                        <td>@user.Email</td>
+                        <td>
+                            <button @onclick="() => AssignAdminRole(user.Id)"class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 
+                                            rounded-md 
+                                            focus:outline-none 
+                                            focus:ring-2 
+                                            focus:ring-purple-600 
+                                            focus:ring-opacity-50">Assign Admin Role</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table> *@
     </article>
 </section>
 
+@code{
+    private AssignRoleModel assignRoleModel = new AssignRoleModel();
+
+ private List<User> users = new List<User>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        users = await usersService.GetAllUsersAsync();
+    }
+
+
+    private async Task AssignRole()
+    {
+        if (int.TryParse(assignRoleModel.UserId, out int userId))
+        {
+            await usersService.AssignAdminRoleAsync(userId);
+        }
+    }
+    private async Task AssignAdminRole(int userId)
+    {
+        await usersService.AssignAdminRoleAsync(userId);
+    }
+
+    [System.Diagnostics.DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
+    private class AssignRoleModel
+    {
+        public AssignRoleModel()
+        {
+        }
+
+        public string UserId { get; set; }
+
+        public AssignRoleModel(string userId)
+        {
+            UserId = userId;
+        }
+
+        private string GetDebuggerDisplay()
+        {
+            return ToString();
+        }
+    }
+
+}
