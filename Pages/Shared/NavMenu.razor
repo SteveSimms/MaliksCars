@@ -47,11 +47,14 @@
 					role="menuitem">Dashboard</a>
 
 
- 					<a
+									@if(IsAdmin){
+											<a
 					href="/admin/dashboard"
 					@click="desktopMenuOpen = false"
 					class="block px-4 py-4 text-base text-gray-600 hover:text-black hover:bg-gray-100 font-semibold"
 					role="menuitem">Admin Dashboard</a>
+									}
+ 				
 
 				
 				  <a
@@ -141,6 +144,16 @@
 			href="/dashboard"
 			>Dashboard</a
 		  >
+
+			@if(IsAdmin){
+			<a
+			x-on:click="mobileMenuOpen = false"
+			class="text-gray-600 hover:bg-gray-100 hover:text-black block px-4 py-2 font-medium"
+			href="/admin/dashboard"
+			>Admin Dashboard</a
+		  >
+		}
+ 			
 		  <a
 			x-on:click="mobileMenuOpen = false"
 			class="text-gray-600 hover:bg-gray-100 hover:text-black block px-4 py-2 font-medium"
@@ -178,6 +191,8 @@
 
 @code{
 	private User user;
+	
+	private bool IsAdmin;
 	protected override async Task OnInitializedAsync()
 	{
 		var authenticationState = await _authenticationStateProvider.GetAuthenticationStateAsync();
@@ -187,8 +202,13 @@
 		if(int.TryParse(userIdString, out var userId))
 	{
 		user = await _usersService.FindUserAsync(userId);
+			IsAdmin = await _usersService.GetUserRolesAsync(userId);
 	}	
-}
+		
+	
+
+		
+	}
 
 
 }
