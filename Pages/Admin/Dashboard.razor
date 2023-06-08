@@ -38,11 +38,9 @@
             <td class="whitespace-nowrap px-4 py-2 text-gray-700">@user.Name</td>
             <td class="whitespace-nowrap px-4 py-2 text-gray-700">@user.Email</td>
             <td class="whitespace-nowrap px-4 py-2 text-gray-700">
-                        @* @user.UserRoles.FirstOrDefault()?.Role.Name *@
-                @foreach (var userRole in user.UserRoles)
-                {
-                    <span>@userRole.Role.Name</span>
-                }
+                       
+                    @string.Join(", ", user.UserRoles.Select(ur => ur.Role.Name))
+        
                         </td>
                         <td>
                             <button @onclick="() => AssignAdminRole(user.Id)"class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 
@@ -93,3 +91,11 @@
 
 
 //create service method Called GetAdminRoleAsync
+
+
+
+//send to notes         @* @user.UserRoles.FirstOrDefault()?.Role.Name *@
+                @* @foreach (var userRole in user.UserRoles)
+                {
+                    <span>@userRole.Role.Name</span>
+                } *@

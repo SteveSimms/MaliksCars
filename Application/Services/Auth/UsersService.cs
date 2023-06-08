@@ -44,8 +44,9 @@ namespace MaliksCars.Application.Services.Auth
             await context.UserRoles.AddAsync(new UserRole { RoleId = 1, User = user });
             await context.SaveChangesAsync();
             return addedUser.Entity;
-        }
-
+       }
+// Eager loading is a technique that allows you to load related data along with the main entity when querying the database. This is done by using the Include method 
+// in your query to specify the navigation properties that you want to eagerly load. You can also use the ThenInclude method to eagerly load nested navigation properties.
         public async Task<List<User>> GetAllUsersAsync()
         {
             using var context = _factory.CreateDbContext();
