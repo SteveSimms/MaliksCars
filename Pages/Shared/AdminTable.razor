@@ -1,0 +1,53 @@
+
+<!--
+  Heads up! 👋
+
+  This component comes with some `rtl` classes. Please remove them if they are not needed in your project.
+-->
+
+<div class="overflow-x-auto">
+  <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+    <thead class="ltr:text-left rtl:text-right">
+      <tr>
+            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          User Id
+        </th>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          Name
+        </th>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          Email
+        </th>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          Role
+        </th>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          Actions
+        </th>
+      </tr>
+    </thead>
+
+    <tbody class="divide-y divide-gray-200">
+        @foreach(var user in Users){
+
+
+      <tr>
+        <td class="whitespace-nowrap px-4 py-2 text-gray-700">@user.Id</td>
+        <td class="whitespace-nowrap px-4 py-2 text-gray-700">@user.Name</td>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700">@user.Email</td>
+        @* <td class="whitespace-nowrap px-4 py-2 text-gray-700">@user.Actions</td> *@
+      </tr>
+    }   
+    </tbody>
+  </table>
+</div>
+@code {
+
+[Parameter] public List<User> Users { get; set; }
+
+private User selectedUser;
+    protected override void OnInitialized()
+    {
+        
+    }
+}

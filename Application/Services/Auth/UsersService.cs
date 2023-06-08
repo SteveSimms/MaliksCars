@@ -49,7 +49,9 @@ namespace MaliksCars.Application.Services.Auth
         public async Task<List<User>> GetAllUsersAsync()
         {
             using var context = _factory.CreateDbContext();
-            return await context.Users
+            return await context.Users 
+                    .Include(u => u.UserRoles)
+                    .ThenInclude(ur => ur.Role)
                     .ToListAsync();
         }
 
