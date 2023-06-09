@@ -1,11 +1,158 @@
 @page "/admin/create-car"
+@inject ICarService carService
+@using  MaliksCars.Application.Services.Auth
+<!--
+  Heads up! 👋
 
-<h1>My Page</h1>
+  Plugins:
+    - @tailwindcss/forms
+-->
+
+<div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-lg">
+        <h1 class="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">
+            Add Cars To Database
+        </h1>
+
+        <p class="mx-auto mt-4 max-w-md text-center text-gray-500">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati sunt
+            dolores deleniti inventore quaerat mollitia?
+        </p>
+
+        <EditForm Model="@car" OnValidSubmit="@HandleValidSubmit"
+                  class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
+            <DataAnnotationsValidator />
+
+            <p class="text-center text-lg font-medium">Add car to DB</p>
+
+            <div>
+                <label for="name" class="sr-only">Name:</label>
+
+                <div class="relative">
+
+
+                    <InputText id="name"
+                               @bind-Value="@car.Name"
+                               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                               placeholder="Enter name" />
+                </div>
+            </div>
+
+            <div>
+                <label for="model" class="sr-only">Model:</label>
+
+                <div class="relative">
+                    <InputText id="model"
+                               @bind-Value="@car.Model"
+                               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                               placeholder="Enter model" />
+
+
+                </div>
+            </div>
+            <div>
+                <label for="color" class="sr-only">Color:</label>
+
+                <div class="relative">
+                    <InputText id="color"
+                               @bind-Value="@car.Color"
+                               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                               placeholder="Enter color" />
+
+
+                </div>
+            </div>
+            <div>
+                <label for="year" class="sr-only">Year:</label>
+
+                <div class="relative">
+                    <InputText id="year"
+                               @bind-Value="@car.Year"
+                               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                               placeholder="Enter Year" />
+
+
+                </div>
+            </div>
+            <div>
+                <label for="basePrice" class="sr-only">Base Price:</label>
+
+                <div class="relative">
+                    <InputText id="basePrice"
+                               @bind-Value="@car.BasePrice"
+                               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                               placeholder="Enter base price" />
+
+
+                </div>
+            </div>
+            <div>
+                <label for="imageUrl" class="sr-only">Image Url:</label>
+
+                <div class="relative">
+                    <InputText id="imageUrl"
+                               @bind-Value="@car.ImageUrl"
+                               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                               placeholder="Enter image Url" />
+
+                </div>
+
+            </div>
+
+
+            <div>
+                <label for="emoji" class="sr-only">Emoji:</label>
+
+                <div class="relative">
+                    <InputText id="emoji"
+                               @bind-Value="@car.Emoji"
+                               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                               placeholder="Enter emoji" />
+
+                </div>
+            </div>
+
+
+
+            <div>
+                <label for="description" class="sr-only">Description:</label>
+
+                <div class="relative">
+                    <InputText id="description"
+                               @bind-Value="@car.Description"
+                               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                               placeholder="Enter description" />
+
+                </div>
+            </div>
+
+            <button type="submit"
+                    class="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white">
+                Save Changes
+            </button>
+
+            <p class="text-center text-sm text-gray-500">
+
+                <a class="underline" href="">back</a>
+            </p>
+        </EditForm>
+    </div>
+</div>
 
 @code {
 
+    private Car car = new Car();
+
     protected override void OnInitialized()
     {
-        
+
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        await carService.CreateCarAsync(car);
     }
 }
+
+
+//todo: clear form and add alert dialog compoenent

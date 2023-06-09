@@ -40,6 +40,7 @@ namespace MaliksCars.Application.Startup
         AddCustomServices(this IServiceCollection services)
         {
             // add custom services
+            services.AddScoped<ICarService, CarService>();
             services.AddScoped<UsersService>();
             services.AddScoped<RolesService>();
             services.AddScoped<IExampleService, ExampleService>();
