@@ -10,52 +10,99 @@
                 <h1 class="text-2xl font-bold text-gray-800">
                     Admin Dashboard
                 </h1>
-             <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
-    <thead class="ltr:text-left rtl:text-right">
-      <tr>
-            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-          User Id
-        </th>
-        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-          Name
-        </th>
-        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-          Email
-        </th>
-        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-          Role
-        </th>
-        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-          Actions
-        </th>
-      </tr>
-    </thead>
-            <tbody>
-                @foreach (var user in users)
-                {
-                    <tr>
-                   <td class="whitespace-nowrap px-4 py-2 text-gray-700">@user.Id</td>
-            <td class="whitespace-nowrap px-4 py-2 text-gray-700">@user.Name</td>
-            <td class="whitespace-nowrap px-4 py-2 text-gray-700">@user.Email</td>
-            <td class="whitespace-nowrap px-4 py-2 text-gray-700">
-                       
-                    @string.Join(", ", user.UserRoles.Select(ur => ur.Role.Name))
-        
-                        </td>
-                        <td>
-                            <button @onclick="() => AssignAdminRole(user.Id)"class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 
-                                            rounded-md 
-                                            focus:outline-none 
-                                            focus:ring-2 
-                                            focus:ring-purple-600 
-                                            focus:ring-opacity-50">Assign Admin Role</button>
-                        </td>
-                    </tr>
-                      
-                }
-            </tbody>
-        </table>
-  
+                <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+                    <thead class="ltr:text-left rtl:text-right">
+                        <tr>
+                            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                                User Id
+                            </th>
+                            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                                Name
+                            </th>
+                            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                                Email
+                            </th>
+                            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                                Role
+                            </th>
+                            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                                Select Roles
+                            </th>
+                            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                                Remove Roles
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in users)
+                        {
+                            <tr>
+                                <td class="whitespace-nowrap px-4 py-2 text-gray-700">@user.Id</td>
+                                <td class="whitespace-nowrap px-4 py-2 text-gray-700">@user.Name</td>
+                                <td class="whitespace-nowrap px-4 py-2 text-gray-700">@user.Email</td>
+                                <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+
+                                    @string.Join(", ", user.UserRoles.Select(ur => ur.Role.Name))
+
+                                </td>
+                                @*dropdown*@
+                                <td>
+
+
+
+
+                                    <select @onchange="@(e => AssignRole(user.Id, e.Value.ToString()))"
+                                            id="SelectRole"
+                                            class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm">
+                                        <option value="">Select role</option>
+                                        <option value="Admin">Admin</option>
+                                        <option value="User">User</option>
+                                    </select>
+
+
+                                    @*<select @onchange="@(e => AssignRole(user.Id, e.Value.ToString()))">
+                                            <option value="">Select role</option>
+                                            <option value="Admin">Admin</option>
+                                            <option value="User">User</option>
+                                        </select>*@
+
+                                </td>
+
+
+
+
+                                <td>
+                                    <select @onchange="@(e => RemoveRole(user.Id, e.Value.ToString()))"
+                                            id="DeselectRole"
+                                            class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm">
+                                        <option value="">Select role to remove</option>
+
+
+
+                                        @foreach (var userRole in user.UserRoles)
+                                        {
+                                            <option value="@userRole.Role.Name">@userRole.Role.Name</option>
+                                        }
+                                    </select>
+                                </td>
+                                @*end of dropdown*@
+
+
+                                @*<td>
+                                        <button @onclick="() => AssignAdminRole(user.Id)" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4
+                                                rounded-md
+                                                focus:outline-none
+                                                focus:ring-2
+                                                focus:ring-purple-600
+                                                focus:ring-opacity-50">
+                                            Assign Admin Role
+                                        </button>
+                                    </td>*@
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
             </article>
         </section>
     </Authorized>
@@ -73,29 +120,43 @@
 
 
     private List<User> users = new List<User>();
-    private bool isAdmin;
 
-   
+
     protected override async Task OnInitializedAsync()
     {
-       users =   await usersService.GetAllUsersAsync();
+        users = await usersService.GetAllUsersAsync();
 
-    @* IsAdmin = await _usersService.GetUserRolesAsync(); *@
     }
+
     private async Task AssignAdminRole(int userId)
     {
-      await usersService.AssignAdminRoleAsync(userId);
+        await usersService.AssignAdminRoleAsync(userId);
+        users = await usersService.GetAllUsersAsync();
     }
-  
+
+
+    private async Task AssignRole(int userId, string roleName)
+    {
+        await usersService.AssignRoleAsync(userId, roleName);
+        users = await usersService.GetAllUsersAsync();
+        StateHasChanged();
+    }
+
+
+    private async Task RemoveRole(int userId, string roleName)
+    {
+        await usersService.RemoveRoleAsync(userId, roleName);
+        users = await usersService.GetAllUsersAsync();
+        StateHasChanged();
+    }
+
 }
 
 
-//create service method Called GetAdminRoleAsync
 
 
+//create a car  "/admin/create-car"
+// create an admin role assigner dropdown
+//create a user watch list of cars  lister
 
-//send to notes         @* @user.UserRoles.FirstOrDefault()?.Role.Name *@
-                @* @foreach (var userRole in user.UserRoles)
-                {
-                    <span>@userRole.Role.Name</span>
-                } *@
+//create a home page related to this beaing a car web site
