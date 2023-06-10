@@ -1,6 +1,7 @@
 @page "/admin/create-car"
 @inject ICarService carService
 @using  MaliksCars.Application.Services.Auth
+@attribute [Authorize(Roles = CustomRoles.Admin)]
 <!--
   Heads up! 👋
 
@@ -30,11 +31,12 @@
 
                 <div class="relative">
 
-
+                    <ValidationMessage class="text-red-600" For="@(() => car.Name)" />
                     <InputText id="name"
                                @bind-Value="@car.Name"
                                class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                                placeholder="Enter name" />
+
                 </div>
             </div>
 
@@ -42,6 +44,7 @@
                 <label for="model" class="sr-only">Model:</label>
 
                 <div class="relative">
+                    <ValidationMessage class="text-red-600" For="@(() => car.Model)" />
                     <InputText id="model"
                                @bind-Value="@car.Model"
                                class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
@@ -54,10 +57,12 @@
                 <label for="color" class="sr-only">Color:</label>
 
                 <div class="relative">
+                    <ValidationMessage class="text-red-600" For="@(() => car.Color)" />
                     <InputText id="color"
                                @bind-Value="@car.Color"
                                class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                                placeholder="Enter color" />
+
 
 
                 </div>
@@ -66,10 +71,12 @@
                 <label for="year" class="sr-only">Year:</label>
 
                 <div class="relative">
+                    <ValidationMessage class="text-red-600" For="@(() => car.Year)" />
                     <InputText id="year"
                                @bind-Value="@car.Year"
                                class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                                placeholder="Enter Year" />
+
 
 
                 </div>
@@ -78,10 +85,12 @@
                 <label for="basePrice" class="sr-only">Base Price:</label>
 
                 <div class="relative">
+                    <ValidationMessage class="text-red-600" For="@(() => car.BasePrice)" />
                     <InputText id="basePrice"
                                @bind-Value="@car.BasePrice"
                                class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                                placeholder="Enter base price" />
+
 
 
                 </div>
@@ -137,11 +146,16 @@
             </p>
         </EditForm>
     </div>
+
+    <SuccessAlert Show="@showAlert" OnDismiss="DismissAlert" />
+
 </div>
+
 
 @code {
 
     private Car car = new Car();
+    private bool showAlert = false;
 
     protected override void OnInitialized()
     {
@@ -150,9 +164,28 @@
 
     private async Task HandleValidSubmit()
     {
+        // Reset the car variable to clear the form
         await carService.CreateCarAsync(car);
+
+        // Reset the car variable to clear the form
+
+        car = new Car();
+        // Set the showAlert variable to true to trigger the alert
+        showAlert = true;
+    }
+
+
+    public void DismissAlert()
+    {
+        showAlert = false;
     }
 }
 
 
-//todo: clear form and add alert dialog compoenent
+@*//todo: clear form and add alert dialog compoenent
+    //todo: ADD FAVICON
+    //todo: FORM VALIDATION
+
+        add footer
+
+        @*//todo: Navbar component and footer*@*

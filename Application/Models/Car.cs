@@ -1,24 +1,32 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace MaliksCars.Application.Models
 {
     public class Car : BaseModel
     {
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        [Required]
+        public string Name { get; set; } = string.Empty;
 
-        public string Model { get; set; }
+        [Required]
+        public string Model { get; set; } = string.Empty;
 
-        public string Color { get; set; }
+        [Required]
+        public string Color { get; set; } = string.Empty;
 
-        public string Year { get; set; }
+        [Required]
+        public string Year { get; set; } = string.Empty;
 
-        public string BasePrice { get; set; }
+        [Required]
+        public string BasePrice { get; set; } = string.Empty;
 
-        public string ImageUrl { get; set; }
 
-        public string Emoji { get; set; }
+        public string ImageUrl { get; set; } = string.Empty;
 
-        public string Description { get; set; }
+        public string Emoji { get; set; } = string.Empty;
+
+        public string Description { get; set; } = string.Empty;
 
         // public string GetFormattedBasePrice() =>
         //     BasePrice.ToString("00,000.00");
