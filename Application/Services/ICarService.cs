@@ -11,5 +11,6 @@ namespace MaliksCars.Application.Services
         public Task<Car> UpdateCarAsync(Car car);
         public Task<Car> CreateCarAsync(Car car);
         public Task AddToWishListAsync(int userId, int carId);
+        public Task RemoveFromWishListAsync(int userId, int carId);
     };
 }
