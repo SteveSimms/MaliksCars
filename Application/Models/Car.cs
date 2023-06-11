@@ -28,6 +28,8 @@ namespace MaliksCars.Application.Models
 
         public string Description { get; set; } = string.Empty;
 
+        public ICollection<UserFavoriteCar>? UserFavoriteCars { get; set; }
+
         // public string GetFormattedBasePrice() =>
         //     BasePrice.ToString("00,000.00");
     }

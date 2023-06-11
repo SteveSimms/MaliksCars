@@ -21,6 +21,8 @@ namespace MaliksCars.Application.Database
 
         public virtual DbSet<Car> Cars { get; set; }
 
+        public virtual DbSet<UserFavoriteCar> UserFavoriteCars { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // it should be placed here, otherwise it will rewrite the following settings!
@@ -68,9 +70,33 @@ namespace MaliksCars.Application.Database
                 .HasData(new Role { Id = 1, Name = CustomRoles.User },
                 new Role { Id = 2, Name = CustomRoles.Admin });
 
+
+
+
+            builder.Entity<UserFavoriteCar>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.CarId });
+                entity.HasIndex(e => e.UserId);
+                entity.HasIndex(e => e.CarId);
+                entity.HasIndex(e => e.CarId);
+                entity.Property(e => e.UserId);
+                entity.Property(e => e.CarId);
+
+                entity
+                .HasOne(d => d.Car)
+                .WithMany(p => p.UserFavoriteCars)
+                .HasForeignKey(d => d.CarId);
+
+                entity
+                  .HasOne(d => d.User)
+                  .WithMany(p => p.UserFavoriteCars)
+                  .HasForeignKey(d => d.UserId);
+            });
+
             builder
                 .Entity<Car>()
-                .HasData(new {
+                .HasData(new
+                {
                     Id = 1,
                     Name = "Toyota",
                     Model = "Tacoma",
@@ -85,7 +111,8 @@ namespace MaliksCars.Application.Database
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
                 },
-                new {
+                new
+                {
                     Id = 2,
                     Name = "Toyota",
                     Model = "Tundra",
@@ -100,7 +127,8 @@ namespace MaliksCars.Application.Database
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
                 },
-                new {
+                new
+                {
                     Id = 3,
                     Name = "Toyota",
                     Model = "Camry",
@@ -115,7 +143,8 @@ namespace MaliksCars.Application.Database
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
                 },
-                new {
+                new
+                {
                     Id = 4,
                     Name = "Toyota",
                     Model = "Prius",
@@ -130,7 +159,8 @@ namespace MaliksCars.Application.Database
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
                 },
-                new {
+                new
+                {
                     Id = 5,
                     Name = "Honda",
                     Model = "Civic",
@@ -145,7 +175,8 @@ namespace MaliksCars.Application.Database
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
                 },
-                new {
+                new
+                {
                     Id = 6,
                     Name = "Honda",
                     Model = "Crv",
@@ -160,7 +191,8 @@ namespace MaliksCars.Application.Database
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
                 },
-                new {
+                new
+                {
                     Id = 7,
                     Name = "Honda",
                     Model = "Hrv",
@@ -175,7 +207,8 @@ namespace MaliksCars.Application.Database
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
                 },
-                new {
+                new
+                {
                     Id = 8,
                     Name = "Acura",
                     Model = "Mdx",
@@ -190,7 +223,8 @@ namespace MaliksCars.Application.Database
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
                 },
-                new {
+                new
+                {
                     Id = 9,
                     Name = "Acura",
                     Model = "Integra",
@@ -205,7 +239,8 @@ namespace MaliksCars.Application.Database
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
                 },
-                new {
+                new
+                {
                     Id = 10,
                     Name = "Lamborghini",
                     Model = "Urus",
@@ -220,7 +255,8 @@ namespace MaliksCars.Application.Database
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
                 },
-                new {
+                new
+                {
                     Id = 11,
                     Name = "Audi",
                     Model = "RSQ8",
@@ -235,7 +271,8 @@ namespace MaliksCars.Application.Database
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
                 },
-                new {
+                new
+                {
                     Id = 12,
                     Name = "Kia",
                     Model = "Soul",
@@ -250,7 +287,8 @@ namespace MaliksCars.Application.Database
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
                 },
-                new {
+                new
+                {
                     Id = 13,
                     Name = "Mercedes",
                     Model = "Amg G63",

@@ -53,5 +53,10 @@ namespace MaliksCars.Application.Services
             var car = await context.Cars.ToListAsync();
             return car;
         }
+
+
+        //Add to Wishlist
+
+
     }
 }

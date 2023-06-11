@@ -5,6 +5,7 @@
         public User()
         {
             UserRoles = new HashSet<UserRole>();
+            UserFavoriteCars = new HashSet<UserFavoriteCar>();
         }
 
         public int Id { get; set; }
@@ -22,5 +23,7 @@
         public DateTime? EmailVerifiedAt { get; set; }
 
         public virtual ICollection<UserRole> UserRoles { get; set; }
+
+        public virtual ICollection<UserFavoriteCar> UserFavoriteCars { get; set; }
     }
 }
