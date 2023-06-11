@@ -53,5 +53,28 @@ namespace MaliksCars.Application.Services
             var car = await context.Cars.ToListAsync();
             return car;
         }
+
+
+        //Add to Wishlist
+        public async Task AddToWishListAsync(int userId, int carId)
+        {
+            using var context = _factory.CreateDbContext();
+            // Check if the car is already in the user's wish list
+            var existingUserFavoriteCar = await context.UserFavoriteCars
+                .FirstOrDefaultAsync(ufc => ufc.UserId == userId && ufc.CarId == carId);
+
+
+            // If not, add it
+
+            if(existingUserFavoriteCar == null)
+            {
+                var newUserFavoriteCar = new UserFavoriteCar { UserId = userId, CarId = carId};
+                context.UserFavoriteCars.Add(newUserFavoriteCar);
+
+                await context.SaveChangesAsync();
+            }
+
+        }
+
     }
 }

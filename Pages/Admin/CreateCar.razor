@@ -19,6 +19,7 @@
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati sunt
             dolores deleniti inventore quaerat mollitia?
         </p>
+        <SuccessAlert Show="@showAlert" OnDismiss="DismissAlert" />
 
         <EditForm Model="@car" OnValidSubmit="@HandleValidSubmit"
                   class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
@@ -147,7 +148,6 @@
         </EditForm>
     </div>
 
-    <SuccessAlert Show="@showAlert" OnDismiss="DismissAlert" />
 
 </div>
 
