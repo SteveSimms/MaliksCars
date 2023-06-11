@@ -76,5 +76,26 @@ namespace MaliksCars.Application.Services
 
         }
 
+
+
+        public async Task RemoveFromWishListAsync(int userId, int carId)
+        {
+            using var context = _factory.CreateDbContext();
+
+            // Find the UserFavoriteCar object to remove
+
+            var userFavoriteCar = await context.UserFavoriteCars
+                 .FirstOrDefaultAsync(ufc => ufc.UserId == userId && ufc.CarId == carId);
+
+            // If it exists, remove it from the database
+
+            if(userFavoriteCar != null)
+            {
+                context.UserFavoriteCars.Remove(userFavoriteCar);
+                await context.SaveChangesAsync();
+            }
+
+        }
+
     }
 }

@@ -20,7 +20,9 @@ namespace MaliksCars.Application.Services.Auth
         public async Task<User> FindUserAsync(int userId)
         {
             using var context = _factory.CreateDbContext();
-            return await context.Users.FindAsync(userId);
+            return await context.Users
+                .Include(u => u.UserFavoriteCars)
+                .FirstOrDefaultAsync(u => u.Id == userId);
         }
 
         public async Task<User?> FindUserAsync(string username, string password)
@@ -51,6 +53,7 @@ namespace MaliksCars.Application.Services.Auth
         {
             using var context = _factory.CreateDbContext();
             return await context.Users
+                    //.Include(ufc => ufc.UserFavoriteCars)
                     .Include(u => u.UserRoles)
                     .ThenInclude(ur => ur.Role)
                     .ToListAsync();
