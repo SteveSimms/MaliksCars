@@ -1,7 +1,7 @@
-﻿using BlazorSpark.Library.Auth;
-using BlazorSpark.Library.Database;
-using BlazorSpark.Library.Logging;
-using BlazorSpark.Library.Mail;
+﻿using Spark.Library.Auth;
+using Spark.Library.Database;
+using Spark.Library.Logging;
+using Spark.Library.Mail;
 using Coravel;
 using MaliksCars.Application.Database;
 using MaliksCars.Application.Events.Listeners;

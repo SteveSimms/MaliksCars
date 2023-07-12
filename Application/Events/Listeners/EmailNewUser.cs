@@ -1,5 +1,5 @@
 ﻿using MaliksCars.Application.Mail;
-using BlazorSpark.Library.Mail;
+using Spark.Library.Mail;
 using Coravel.Events.Interfaces;
 
 namespace MaliksCars.Application.Events.Listeners

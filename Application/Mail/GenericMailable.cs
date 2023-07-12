@@ -1,4 +1,4 @@
-﻿using BlazorSpark.Library.Mail;
+﻿using Spark.Library.Mail;
 
 namespace MaliksCars.Application.Mail
 {

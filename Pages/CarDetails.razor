@@ -41,9 +41,19 @@
                       <button @onclick="() => NavigateToCarsPage()" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50">
                         Dealership
                     </button> 
-                    <button @onclick="ToggleDescription" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50">
+
+                    @if(isDescriptionExpanded){
+
+                     <button @onclick="ToggleDescription" class="ml-1 bg-purple-300 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50">
+                        Hide Details
+                    </button> 
+                    } else {
+                    <button @onclick="ToggleDescription" class="ml-1 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50">
                         See Details
                     </button> 
+
+                    }
+                  
                 </div>
             </div> 
 </div>
